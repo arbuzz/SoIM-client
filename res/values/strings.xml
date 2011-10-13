@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HomeActivity</string>
+
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="login_btn_text">Войти!</string>
+
+    <string name="loading_text">Грузим! Грузим...</string>
 </resources>

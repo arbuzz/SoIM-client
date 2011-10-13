@@ -62,6 +62,9 @@ public class HomeActivity extends Activity implements Observer {
     }
 
     public void update(Observable o, Object arg) {
+        if (!(arg instanceof Message))
+            return;
+
         final Message msg = (Message) arg;
         runOnUiThread(new Runnable() {
             public void run() {

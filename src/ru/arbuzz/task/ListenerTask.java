@@ -45,7 +45,7 @@ public class ListenerTask extends AsyncTask<Void, Void, Void> {
 
             MessageHandler.getInstance().messageReceived(msg);
         } catch (Exception e) {
-            Log.e("asd", "asd", e);
+            Log.e("asd", "asd", e); // TODO debug
         }
         return null;
     }
