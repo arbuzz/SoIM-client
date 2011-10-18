@@ -2,6 +2,8 @@ package ru.arbuzz.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
 /**
  * This code is brought you by
@@ -10,7 +12,7 @@ import org.simpleframework.xml.Element;
  */
 public class Message {
 
-    @Element
+    @Text
     private String body;
     @Attribute
     private String to;

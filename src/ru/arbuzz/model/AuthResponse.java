@@ -9,7 +9,7 @@ import org.simpleframework.xml.Root;
  * @author Olshanikov Konstantin
  */
 @Root(name = "authResponse")
-public class BaseResponse {
+public class AuthResponse {
 
     public static final int OK = 1;
     public static final int AUTH_ERROR = 2;
@@ -17,9 +17,9 @@ public class BaseResponse {
     @Attribute
     private int resultCode;
 
-    public BaseResponse() {}
+    public AuthResponse() {}
 
-    public BaseResponse(int resultCode) {
+    public AuthResponse(int resultCode) {
         this.resultCode = resultCode;
     }
 

@@ -2,7 +2,9 @@ package ru.arbuzz.util;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import ru.arbuzz.model.AuthResponse;
 import ru.arbuzz.model.Message;
+import ru.arbuzz.model.Roster;
 
 import java.io.StringWriter;
 
@@ -26,6 +28,10 @@ public class XMLUtil {
         Class clazz = null;
         if (message.startsWith("<message"))
             clazz = Message.class;
+        if (message.startsWith("<authResponse"))
+            clazz = AuthResponse.class;
+        if (message.startsWith("<roster"))
+            clazz = Roster.class;
         return getSerializer().read(clazz, message);
     }
 

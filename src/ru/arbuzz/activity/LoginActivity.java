@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import ru.arbuzz.R;
+import ru.arbuzz.model.Auth;
+import ru.arbuzz.task.AuthTask;
 
 /**
  * This code is brought you by
@@ -20,7 +22,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
 
         Button loginBtn = (Button) findViewById(R.id.login_btn);
-
+        loginBtn.setOnClickListener(new OnLoginBtnClickListener());
     }
 
     private class OnLoginBtnClickListener implements View.OnClickListener {
@@ -28,7 +30,7 @@ public class LoginActivity extends Activity {
         public void onClick(View view) {
             EditText login = (EditText) findViewById(R.id.login);
             EditText password = (EditText) findViewById(R.id.password);
-
+            new AuthTask(LoginActivity.this, new Auth(login.getText().toString(), password.getText().toString())).execute();
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import com.sun.xml.internal.ws.api.message.Packet;
 import ru.arbuzz.model.Message;
 import ru.arbuzz.util.MessageHandler;
 import ru.arbuzz.util.XMLUtil;
@@ -41,9 +42,9 @@ public class ListenerTask extends AsyncTask<Void, Void, Void> {
             byte[] data = new byte[length];
             dis.read(data);
             String message = new String(data);
-            Message msg = (Message) XMLUtil.parse(message);
+            Object packet = XMLUtil.parse(message);
 
-            MessageHandler.getInstance().messageReceived(msg);
+//            MessageHandler.getInstance().messageReceived(packet);
         } catch (Exception e) {
             Log.e("asd", "asd", e); // TODO debug
         }

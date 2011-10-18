@@ -19,6 +19,6 @@ public class IMApp extends Application {
         ResourcesHolder.init(getResources());
 
         Intent intent = new Intent(getApplicationContext(), XMPPService.class);
-        startService(intent);
+//        startService(intent);
     }
 }

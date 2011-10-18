@@ -1,5 +1,6 @@
 package ru.arbuzz.util;
 
+import ru.arbuzz.model.Auth;
 import ru.arbuzz.model.Message;
 
 import java.util.List;
@@ -30,5 +31,10 @@ public class MessageHandler extends Observable {
     public void messageReceived(Message message) {
         setChanged();
         notifyObservers(message);
+    }
+
+    public void authReceived(Auth auth) {
+        setChanged();
+        notifyObservers(auth);
     }
 }
