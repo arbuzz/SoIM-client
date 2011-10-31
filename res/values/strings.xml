@@ -20,4 +20,8 @@
     <string name="find_all_people_button_text">Найти всех!</string>
     <string name="find_error_text">Ошибка при поиске</string>
     <string name="find_no_result">Ничего не найдено!</string>
+    <string name="find_context_menu_add_label">Добавить!</string>
+
+    <string name="add_contact_success_text">Контакт успешно добавлен!</string>
+    <string name="add_contact_failure_text">Контакт не был добавлен! Произошла ошибка.</string>
 </resources>

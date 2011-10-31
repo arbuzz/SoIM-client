@@ -2,36 +2,30 @@ package ru.arbuzz.task;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 import ru.arbuzz.R;
-import ru.arbuzz.activity.ContactListActivity;
-import ru.arbuzz.model.Auth;
+import ru.arbuzz.model.AddContactRequest;
 import ru.arbuzz.model.BaseResponse;
-import ru.arbuzz.util.Config;
-import ru.arbuzz.util.ResourcesHolder;
 import ru.arbuzz.util.SocketUtil;
-
-import java.io.DataInputStream;
-import java.net.Socket;
 
 /**
  * This code is brought you by
  *
  * @author Olshanikov Konstantin
  */
-public class AuthTask extends AsyncTask<Void, Void, BaseResponse> {
+public class AddContactTask extends AsyncTask<Void, Void, BaseResponse> {
 
     private Activity context;
+    private AddContactRequest request;
     private ProgressDialog dialog;
-    private Auth auth;
 
-    public AuthTask(Activity context, Auth auth) {
+    public AddContactTask(Activity context, AddContactRequest request) {
         this.context = context;
-        this.dialog = new ProgressDialog(context);
-        this.dialog.setMessage(context.getString(R.string.loading_text));
-        this.auth = auth;
+        this.request = request;
+        dialog = new ProgressDialog(context);
+        dialog.setMessage(context.getString(R.string.loading_text));
     }
 
     @Override
@@ -42,10 +36,10 @@ public class AuthTask extends AsyncTask<Void, Void, BaseResponse> {
     @Override
     protected BaseResponse doInBackground(Void... voids) {
         try {
-            SocketUtil.write(auth);
+            SocketUtil.write(request);
             return SocketUtil.read(BaseResponse.class);
         } catch (Exception e) {
-            Log.e("Auth", "Error while authorization", e);
+            Log.e("AddContact", "Error while adding contact", e);
             return null;
         }
     }
@@ -53,10 +47,9 @@ public class AuthTask extends AsyncTask<Void, Void, BaseResponse> {
     @Override
     protected void onPostExecute(BaseResponse response) {
         if (response != null && response.getResultCode() == BaseResponse.OK) {
-            ResourcesHolder.setLogin(auth.getLogin());
-            Intent intent = new Intent(context, ContactListActivity.class);
-            intent.putExtra(Config.LOGIN, auth.getLogin());
-            context.startActivity(intent);
+            Toast.makeText(context, context.getString(R.string.add_contact_success_text), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, context.getString(R.string.add_contact_failure_text), Toast.LENGTH_SHORT).show();
         }
         dialog.dismiss();
     }

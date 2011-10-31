@@ -10,6 +10,7 @@ import android.content.res.Resources;
 public class ResourcesHolder {
 
     private static Resources resources;
+    private static String login;
 
     public static void init(Resources res) {
         resources = res;
@@ -17,5 +18,13 @@ public class ResourcesHolder {
 
     public static Resources getResources() {
         return resources;
+    }
+
+    public static String getLogin() {
+        return login;
+    }
+
+    public static void setLogin(String login) {
+        ResourcesHolder.login = login;
     }
 }
