@@ -13,4 +13,11 @@
     <string name="register_toast_failed_text">Регистрация провалилась!</string>
 
     <string name="loading_text">Грузим! Грузим...</string>
+
+    <string name="menu_find_people">Найти товарищей</string>
+    <string name="find_people_criteria_hint">А ну-ка, поищем!</string>
+    <string name="find_people_button_text">Найти!</string>
+    <string name="find_all_people_button_text">Найти всех!</string>
+    <string name="find_error_text">Ошибка при поиске</string>
+    <string name="find_no_result">Ничего не найдено!</string>
 </resources>

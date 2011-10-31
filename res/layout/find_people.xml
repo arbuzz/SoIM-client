@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <EditText android:id="@+id/find_criteria"
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:hint="@string/find_people_criteria_hint"/>
+
+    <Button android:id="@+id/find_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/find_people_button_text"/>
+
+    <Button android:id="@+id/find_all_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/find_all_people_button_text"/>
+
+    <ListView android:id="@id/android:list"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import org.simpleframework.xml.core.Persister;
 import org.w3c.dom.Text;
 import ru.arbuzz.R;
 import ru.arbuzz.model.BaseResponse;
+import ru.arbuzz.model.FindResponse;
 import ru.arbuzz.model.Message;
 import ru.arbuzz.model.Roster;
 
@@ -68,10 +69,13 @@ public class SocketUtil {
         Class clazz = null;
         if (message.startsWith("<message"))
             clazz = Message.class;
-        if (message.startsWith("<response"))
+        else if (message.startsWith("<response"))
             clazz = BaseResponse.class;
-        if (message.startsWith("<roster"))
+        else if (message.startsWith("<roster"))
             clazz = Roster.class;
+        else if (message.startsWith("<find"))
+            clazz = FindResponse.class;
+
         return serializer.read(clazz, message);
     }
 
