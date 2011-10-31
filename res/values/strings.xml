@@ -5,6 +5,12 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="login_btn_text">Войти!</string>
+    <string name="register_btn_text">Зарегистрироваться!</string>
+
+    <string name="register_dialog_title">Регистрация! Йо!</string>
+
+    <string name="register_toast_succeed_text">Регистрация успешна!</string>
+    <string name="register_toast_failed_text">Регистрация провалилась!</string>
 
     <string name="loading_text">Грузим! Грузим...</string>
 </resources>

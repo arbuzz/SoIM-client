@@ -8,10 +8,9 @@ import android.util.Log;
 import ru.arbuzz.R;
 import ru.arbuzz.activity.ContactListActivity;
 import ru.arbuzz.model.Auth;
-import ru.arbuzz.model.AuthResponse;
+import ru.arbuzz.model.BaseResponse;
 import ru.arbuzz.util.Config;
-import ru.arbuzz.util.SocketFactory;
-import ru.arbuzz.util.XMLUtil;
+import ru.arbuzz.util.SocketUtil;
 
 import java.io.DataInputStream;
 import java.net.Socket;
@@ -21,7 +20,7 @@ import java.net.Socket;
  *
  * @author Olshanikov Konstantin
  */
-public class AuthTask extends AsyncTask<Void, Void, AuthResponse> {
+public class AuthTask extends AsyncTask<Void, Void, BaseResponse> {
 
     private Activity context;
     private ProgressDialog dialog;
@@ -40,19 +39,10 @@ public class AuthTask extends AsyncTask<Void, Void, AuthResponse> {
     }
 
     @Override
-    protected AuthResponse doInBackground(Void... voids) {
+    protected BaseResponse doInBackground(Void... voids) {
         try {
-            Socket socket = SocketFactory.getSocket();
-            socket.getOutputStream().write(XMLUtil.serialize(auth).getBytes());
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            int length = dis.readInt();
-            if (length == 0) {
-                return null;
-            }
-            byte[] data = new byte[length];
-            dis.readFully(data);
-            AuthResponse response = (AuthResponse) XMLUtil.parse(new String(data));
-            return response;
+            SocketUtil.write(auth);
+            return SocketUtil.read(BaseResponse.class);
         } catch (Exception e) {
             Log.e("Auth", "Error while authorization", e);
             return null;
@@ -60,8 +50,8 @@ public class AuthTask extends AsyncTask<Void, Void, AuthResponse> {
     }
 
     @Override
-    protected void onPostExecute(AuthResponse response) {
-        if (response != null && response.getResultCode() == AuthResponse.OK) {
+    protected void onPostExecute(BaseResponse response) {
+        if (response != null && response.getResultCode() == BaseResponse.OK) {
             Intent intent = new Intent(context, ContactListActivity.class);
             intent.putExtra(Config.LOGIN, auth.getLogin());
             context.startActivity(intent);

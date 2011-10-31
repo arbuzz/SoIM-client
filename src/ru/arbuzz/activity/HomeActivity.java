@@ -1,10 +1,8 @@
 package ru.arbuzz.activity;
 
 import android.app.Activity;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +10,7 @@ import android.widget.TextView;
 import ru.arbuzz.R;
 import ru.arbuzz.model.Message;
 import ru.arbuzz.util.MessageHandler;
-import ru.arbuzz.util.SocketFactory;
-import ru.arbuzz.util.XMLUtil;
+import ru.arbuzz.util.SocketUtil;
 
 import java.io.*;
 import java.util.Observable;
@@ -33,21 +30,21 @@ public class HomeActivity extends Activity implements Observer {
         text = (TextView) findViewById(R.id.text);
     }
 
-    public void onSendClick(View view) {
-        Button button = (Button) view;
-        try {
-            PrintWriter out = new PrintWriter(SocketFactory.getSocket().getOutputStream());
-            Message msg = new Message();
-            msg.setBody(messageText.getText().toString());
-            msg.setFrom("Kostya");
-            msg.setTo("server");
-            out.print(XMLUtil.serialize(msg));
-            out.flush();
-        } catch (Exception e) {
-            button.setText("Exception!");
-            Log.e("socket", "", e);
-        }
-    }
+//    public void onSendClick(View view) {
+//        Button button = (Button) view;
+//        try {
+//            PrintWriter out = new PrintWriter(SocketUtil.getSocket().getOutputStream());
+//            Message msg = new Message();
+//            msg.setBody(messageText.getText().toString());
+//            msg.setFrom("Kostya");
+//            msg.setTo("server");
+//            out.print(XMLUtil.serialize(msg));
+//            out.flush();
+//        } catch (Exception e) {
+//            button.setText("Exception!");
+//            Log.e("socket", "", e);
+//        }
+//    }
 
     @Override
     protected void onStart() {

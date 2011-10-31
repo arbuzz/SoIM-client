@@ -8,8 +8,7 @@ import ru.arbuzz.R;
 import ru.arbuzz.adapter.ContactListAdapter;
 import ru.arbuzz.model.Roster;
 import ru.arbuzz.model.RosterRequest;
-import ru.arbuzz.util.SocketFactory;
-import ru.arbuzz.util.XMLUtil;
+import ru.arbuzz.util.SocketUtil;
 
 import java.io.DataInputStream;
 import java.net.Socket;
@@ -40,16 +39,8 @@ public class ContactListTask extends AsyncTask<Void, Void, Roster> {
     @Override
     protected Roster doInBackground(Void... voids) {
         try {
-            Socket socket = SocketFactory.getSocket();
-            socket.getOutputStream().write(XMLUtil.serialize(request).getBytes());
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            int length = dis.readInt();
-            if (length == 0) {
-                return null;
-            }
-            byte[] data = new byte[length];
-            dis.readFully(data);
-            return (Roster) XMLUtil.parse(new String(data));
+            SocketUtil.write(request);
+            return SocketUtil.read(Roster.class);
         } catch (Exception e) {
             Log.e("Contact List", "Error while executing contact list task", e);
         }

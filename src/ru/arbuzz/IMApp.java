@@ -3,6 +3,7 @@ package ru.arbuzz;
 import android.app.Application;
 import android.content.Intent;
 import ru.arbuzz.util.ResourcesHolder;
+import ru.arbuzz.util.SocketUtil;
 import ru.arbuzz.util.XMPPService;
 
 /**
@@ -17,6 +18,7 @@ public class IMApp extends Application {
         super.onCreate();
 
         ResourcesHolder.init(getResources());
+        SocketUtil.init();
 
         Intent intent = new Intent(getApplicationContext(), XMPPService.class);
 //        startService(intent);

@@ -8,18 +8,19 @@ import org.simpleframework.xml.Root;
  *
  * @author Olshanikov Konstantin
  */
-@Root(name = "authResponse")
-public class AuthResponse {
+@Root(name = "response")
+public class BaseResponse {
 
     public static final int OK = 1;
     public static final int AUTH_ERROR = 2;
+    public static final int REGISTRATION_ERROR = 3;
 
     @Attribute
     private int resultCode;
 
-    public AuthResponse() {}
+    public BaseResponse() {}
 
-    public AuthResponse(int resultCode) {
+    public BaseResponse(int resultCode) {
         this.resultCode = resultCode;
     }
 

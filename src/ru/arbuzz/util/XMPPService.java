@@ -14,8 +14,8 @@ public class XMPPService extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        ListenerTask task = new ListenerTask(SocketFactory.getSocket(), getApplicationContext());
-        task.execute();
+//        ListenerTask task = new ListenerTask(SocketUtil.getSocket(), getApplicationContext());
+//        task.execute();
 
         stopSelf();
         super.onStart(intent, startId);
