@@ -6,11 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import ru.arbuzz.model.Message;
+import ru.arbuzz.util.MessageHandler;
+import ru.arbuzz.util.SocketUtil;
 import ru.arbuzz.util.XMPPService;
 
 import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.Calendar;
+import java.util.Observable;
 
 /**
  * This code is brought you by
@@ -19,28 +23,17 @@ import java.util.Calendar;
  */
 public class ListenerTask extends AsyncTask<Void, Void, Void> {
 
-    private Socket socket;
     private Context context;
 
-    public ListenerTask(Socket socket, Context context) {
-        this.socket = socket;
+    public ListenerTask(Context context) {
         this.context = context;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            int length = dis.readInt();
-            if (length == 0) {
-                return null;
-            }
-            byte[] data = new byte[length];
-            dis.read(data);
-            String message = new String(data);
-//            Object packet = XMLUtil.parse(message);
-
-//            MessageHandler.getInstance().messageReceived(packet);
+            Message message = SocketUtil.read(Message.class);
+            MessageHandler.getInstance().messageReceived(message);
         } catch (Exception e) {
             Log.e("asd", "asd", e); // TODO debug
         }

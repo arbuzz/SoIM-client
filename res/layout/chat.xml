@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <!--<ListView android:layout_width="fill_parent"-->
+              <!--android:layout_height="fill_parent"-->
+              <!--android:id="@id/android:list"/>-->
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/text"/>
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  android:layout_alignParentBottom="true"
+                  android:orientation="vertical">
+
+        <Button android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:id="@+id/send_message_btn"
+                android:text="@string/send_message_button_text"/>
+
+        <EditText android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  android:id="@+id/message_text"/>
+
+                  </LinearLayout>
+
+</RelativeLayout>
