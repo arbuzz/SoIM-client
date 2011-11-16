@@ -13,7 +13,7 @@ import java.util.List;
 @Root(name = "roster")
 public class Roster {
 
-    @ElementList(inline = true)
+    @ElementList(inline = true, required = false)
     private List<RosterElement> contacts;
 
     public Roster() {}

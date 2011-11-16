@@ -21,43 +21,34 @@ import java.net.Socket;
  *
  * @author Olshanikov Konstantin
  */
-public class AuthTask extends AsyncTask<Void, Void, BaseResponse> {
+public class AuthTask extends AsyncTask<Void, Void, Void> {
 
-    private Activity context;
-    private ProgressDialog dialog;
     private Auth auth;
 
-    public AuthTask(Activity context, Auth auth) {
-        this.context = context;
-        this.dialog = new ProgressDialog(context);
-        this.dialog.setMessage(context.getString(R.string.loading_text));
+    public AuthTask(Auth auth) {
         this.auth = auth;
     }
 
     @Override
-    protected void onPreExecute() {
-        dialog.show();
-    }
-
-    @Override
-    protected BaseResponse doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         try {
             SocketUtil.write(auth);
-            return SocketUtil.read(BaseResponse.class);
         } catch (Exception e) {
             Log.e("Auth", "Error while authorization", e);
             return null;
         }
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(BaseResponse response) {
-        if (response != null && response.getResultCode() == BaseResponse.OK) {
-            ResourcesHolder.setLogin(auth.getLogin());
-            Intent intent = new Intent(context, ContactListActivity.class);
-            intent.putExtra(Config.LOGIN, auth.getLogin());
-            context.startActivity(intent);
-        }
-        dialog.dismiss();
-    }
+//    @Override
+//    protected void onPostExecute(Void v) {
+//        if (response != null && response.getResultCode() == BaseResponse.OK) {
+//            ResourcesHolder.setLogin(auth.getLogin());
+//            Intent intent = new Intent(context, ContactListActivity.class);
+//            intent.putExtra(Config.LOGIN, auth.getLogin());
+//            ResourcesHolder.setLogin(auth.getLogin());
+//            context.startActivity(intent);
+//        }
+//        dialog.dismiss();
+//    }
 }

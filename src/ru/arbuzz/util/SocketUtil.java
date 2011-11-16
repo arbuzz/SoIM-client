@@ -41,7 +41,7 @@ public class SocketUtil {
         socket.getOutputStream().write(serialize(object).getBytes());
     }
 
-    public static <T extends Object> T read(Class<T> clazz) throws Exception {
+    public static <T extends Object> T read() throws Exception {
         DataInputStream dis = new DataInputStream(socket.getInputStream());
         int length = dis.readInt();
         if (length == 0) {

@@ -28,13 +28,8 @@ public class MessageHandler extends Observable {
         return instance;
     }
 
-    public void messageReceived(Message message) {
+    public void messageReceived(Object message) {
         setChanged();
         notifyObservers(message);
-    }
-
-    public void authReceived(Auth auth) {
-        setChanged();
-        notifyObservers(auth);
     }
 }

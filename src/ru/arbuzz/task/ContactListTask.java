@@ -18,42 +18,21 @@ import java.net.Socket;
  *
  * @author Olshanikov Konstantin
  */
-public class ContactListTask extends AsyncTask<Void, Void, Roster> {
+public class ContactListTask extends AsyncTask<Void, Void, Void> {
 
-    private ListActivity context;
     private final RosterRequest request;
-    private ProgressDialog dialog;
 
-    public ContactListTask(ListActivity context, RosterRequest request) {
-        this.context = context;
+    public ContactListTask(RosterRequest request) {
         this.request = request;
-        dialog = new ProgressDialog(context);
-        dialog.setMessage(context.getString(R.string.loading_text));
     }
 
     @Override
-    protected void onPreExecute() {
-        dialog.show();
-    }
-
-    @Override
-    protected Roster doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         try {
             SocketUtil.write(request);
-            return SocketUtil.read(Roster.class);
         } catch (Exception e) {
             Log.e("Contact List", "Error while executing contact list task", e);
         }
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(Roster roster) {
-        if (roster != null) {
-            if (context.getListAdapter() == null) {
-                context.setListAdapter(new ContactListAdapter(context, roster.getContacts()));
-            }
-        }
-        dialog.dismiss();
     }
 }

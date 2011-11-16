@@ -12,6 +12,8 @@
     <string name="register_toast_succeed_text">Регистрация успешна!</string>
     <string name="register_toast_failed_text">Регистрация провалилась!</string>
 
+    <string name="login_failed">Неверный логин и\или пароль!</string>
+
     <string name="loading_text">Грузим! Грузим...</string>
 
     <string name="menu_find_people">Найти товарищей</string>

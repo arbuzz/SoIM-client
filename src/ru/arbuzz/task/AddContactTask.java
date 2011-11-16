@@ -15,42 +15,21 @@ import ru.arbuzz.util.SocketUtil;
  *
  * @author Olshanikov Konstantin
  */
-public class AddContactTask extends AsyncTask<Void, Void, BaseResponse> {
+public class AddContactTask extends AsyncTask<Void, Void, Void> {
 
-    private Activity context;
     private AddContactRequest request;
-    private ProgressDialog dialog;
 
-    public AddContactTask(Activity context, AddContactRequest request) {
-        this.context = context;
+    public AddContactTask(AddContactRequest request) {
         this.request = request;
-        dialog = new ProgressDialog(context);
-        dialog.setMessage(context.getString(R.string.loading_text));
     }
 
     @Override
-    protected void onPreExecute() {
-        dialog.show();
-    }
-
-    @Override
-    protected BaseResponse doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         try {
             SocketUtil.write(request);
-            return SocketUtil.read(BaseResponse.class);
         } catch (Exception e) {
             Log.e("AddContact", "Error while adding contact", e);
-            return null;
         }
-    }
-
-    @Override
-    protected void onPostExecute(BaseResponse response) {
-        if (response != null && response.getResultCode() == BaseResponse.OK) {
-            Toast.makeText(context, context.getString(R.string.add_contact_success_text), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, context.getString(R.string.add_contact_failure_text), Toast.LENGTH_SHORT).show();
-        }
-        dialog.dismiss();
+        return null;
     }
 }

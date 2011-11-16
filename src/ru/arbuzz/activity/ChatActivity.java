@@ -9,39 +9,42 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import ru.arbuzz.R;
+import ru.arbuzz.adapter.MessageAdapter;
 import ru.arbuzz.model.Message;
 import ru.arbuzz.task.SendMessageTask;
 import ru.arbuzz.util.MessageHandler;
+import ru.arbuzz.util.ResourcesHolder;
 import ru.arbuzz.util.XMPPService;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * This code is brought you by
  *
  * @author Olshanikov Konstantin
  */
-public class ChatActivity extends Activity implements Observer, View.OnClickListener {
+public class ChatActivity extends BaseListActivity implements View.OnClickListener {
 
     public static final String USER_CHAT_KEY = "user-chat";
 
     private String userTo;
+
+    private List<Message> messages = new ArrayList<Message>();
+    private MessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+        adapter = new MessageAdapter(this, messages);
+        setListAdapter(adapter);
+
         userTo = getIntent().getStringExtra(USER_CHAT_KEY);
 
         Button button = (Button) findViewById(R.id.send_message_btn);
         button.setOnClickListener(this);
-
-        MessageHandler.getInstance().addObserver(this);
-
-        Intent intent = new Intent(getApplicationContext(), XMPPService.class);
-        startService(intent);
     }
 
     @Override
@@ -50,8 +53,8 @@ public class ChatActivity extends Activity implements Observer, View.OnClickList
             return;
         Message message = (Message) o;
 
-        TextView messageText = (TextView) findViewById(R.id.text);
-        messageText.setText("Не " + message.getBody() + ", а говно");
+        messages.add(message);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -60,7 +63,8 @@ public class ChatActivity extends Activity implements Observer, View.OnClickList
         EditText messageText = (EditText) findViewById(R.id.message_text);
         message.setBody(messageText.getText().toString());
         message.setTo(userTo);
-        message.setFrom("bababa");
+        message.setFrom(ResourcesHolder.getLogin());
+        message.setDate(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
         new SendMessageTask(this, message).execute();
     }
 }

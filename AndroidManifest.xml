@@ -14,7 +14,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ru.arbuzz.activity.HomeActivity" />
         <activity android:name="ru.arbuzz.activity.ContactListActivity"/>
         <activity android:name=".activity.FindPeopleActivity"/>
         <activity android:name=".activity.ChatActivity"/>

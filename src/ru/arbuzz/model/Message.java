@@ -1,8 +1,6 @@
 package ru.arbuzz.model;
 
 import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
 /**
@@ -18,6 +16,8 @@ public class Message {
     private String to;
     @Attribute
     private String from;
+    @Attribute
+    private String date;
 
     public Message() {}
 
@@ -43,5 +43,13 @@ public class Message {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -16,46 +16,21 @@ import ru.arbuzz.util.SocketUtil;
  *
  * @author Olshanikov Konstantin
  */
-public class FindTask extends AsyncTask<Void, Void, FindResponse> {
+public class FindTask extends AsyncTask<Void, Void, Void> {
 
-    private ListActivity context;
     private FindRequest request;
-    private ProgressDialog dialog;
 
-    public FindTask(ListActivity context, FindRequest request) {
-        this.context = context;
+    public FindTask(FindRequest request) {
         this.request = request;
-        this.dialog = new ProgressDialog(context);
-        this.dialog.setMessage(context.getString(R.string.loading_text));
     }
 
     @Override
-    protected void onPreExecute() {
-        dialog.show();
-    }
-
-    @Override
-    protected FindResponse doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         try {
             SocketUtil.write(request);
-            return SocketUtil.read(FindResponse.class);
         } catch (Exception e) {
             Log.e("Find", "Error in find task", e);
-            return null;
         }
-    }
-
-    @Override
-    protected void onPostExecute(FindResponse response) {
-        if (response != null) {
-            if (response.getUsers() != null) {
-                context.setListAdapter(new FindAdapter(context, response.getUsers()));
-            } else {
-                Toast.makeText(context, R.string.find_no_result, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(context, R.string.find_error_text, Toast.LENGTH_SHORT).show();
-        }
-        dialog.dismiss();
+        return null;
     }
 }

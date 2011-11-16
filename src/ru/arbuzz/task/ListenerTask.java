@@ -32,7 +32,7 @@ public class ListenerTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            Message message = SocketUtil.read(Message.class);
+            Object message = SocketUtil.read();
             MessageHandler.getInstance().messageReceived(message);
         } catch (Exception e) {
             Log.e("asd", "asd", e); // TODO debug
@@ -52,7 +52,7 @@ public class ListenerTask extends AsyncTask<Void, Void, Void> {
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
-        cal.add(Calendar.SECOND, 5);
+        cal.add(Calendar.SECOND, 1);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
