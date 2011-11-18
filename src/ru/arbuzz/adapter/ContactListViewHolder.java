@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class ContactListViewHolder {
 
     private TextView name;
+    private TextView unreadMessages;
 
     public ContactListViewHolder() {}
 
@@ -19,5 +20,13 @@ public class ContactListViewHolder {
 
     public void setName(TextView name) {
         this.name = name;
+    }
+
+    public TextView getUnreadMessages() {
+        return unreadMessages;
+    }
+
+    public void setUnreadMessages(TextView unreadMessages) {
+        this.unreadMessages = unreadMessages;
     }
 }

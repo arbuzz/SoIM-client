@@ -14,10 +14,9 @@ import android.widget.ListView;
 import ru.arbuzz.R;
 import ru.arbuzz.adapter.ContactListAdapter;
 import ru.arbuzz.adapter.ContactListViewHolder;
-import ru.arbuzz.model.Roster;
-import ru.arbuzz.model.RosterElement;
-import ru.arbuzz.model.RosterRequest;
+import ru.arbuzz.model.*;
 import ru.arbuzz.task.ContactListTask;
+import ru.arbuzz.task.GoneOfflineTask;
 import ru.arbuzz.util.Config;
 import ru.arbuzz.util.MenuUtil;
 import ru.arbuzz.util.MessageHandler;
@@ -33,6 +32,8 @@ import java.util.Observer;
  * @author Olshanikov Konstantin
  */
 public class ContactListActivity extends BaseListActivity {
+
+    private ContactListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,21 @@ public class ContactListActivity extends BaseListActivity {
 
     @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
+        RosterElement element = adapter.getItem(position);
+        element.setMessagesUnread(0);
+        adapter.notifyDataSetChanged();
+
         ContactListViewHolder holder = (ContactListViewHolder) view.getTag();
         String contactName = (String) holder.getName().getText();
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra(ChatActivity.USER_CHAT_KEY, contactName);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        new GoneOfflineTask().execute();
     }
 
     @Override
@@ -83,11 +94,29 @@ public class ContactListActivity extends BaseListActivity {
                     } else {
                         contacts = new ArrayList<RosterElement>();
                     }
-                    setListAdapter(new ContactListAdapter(ContactListActivity.this, contacts));
+                    adapter = new ContactListAdapter(ContactListActivity.this, contacts);
+                    setListAdapter(adapter);
                 }
             });
             dismissProgressDialog();
-            MessageHandler.getInstance().deleteObserver(this);
+        } else if (o instanceof Presence) {
+            final Presence presence = (Presence) o;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (adapter != null)
+                        adapter.setStatus(presence);
+                }
+            });
+        } else if (o instanceof Message) {
+            final Message message = (Message) o;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (adapter != null)
+                        adapter.setUnreadMessage(message);
+                }
+            });
         }
     }
 

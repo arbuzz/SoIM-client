@@ -7,10 +7,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.w3c.dom.Text;
 import ru.arbuzz.R;
-import ru.arbuzz.model.BaseResponse;
-import ru.arbuzz.model.FindResponse;
-import ru.arbuzz.model.Message;
-import ru.arbuzz.model.Roster;
+import ru.arbuzz.model.*;
 
 import java.io.DataInputStream;
 import java.io.StringWriter;
@@ -42,14 +39,28 @@ public class SocketUtil {
     }
 
     public static <T extends Object> T read() throws Exception {
-        DataInputStream dis = new DataInputStream(socket.getInputStream());
-        int length = dis.readInt();
-        if (length == 0) {
-            return null;
+        try {
+            DataInputStream dis = new DataInputStream(socket.getInputStream());
+            int length = dis.readInt();
+            if (length == 0) {
+                return null;
+            }
+            byte[] data = new byte[length];
+            dis.readFully(data);
+            return (T) parse(new String(data));
+        } catch (Exception e) {
+            new PlainSocketFactory().connectSocket(socket, ResourcesHolder.getResources().getString(R.string.host),
+                    ResourcesHolder.getResources().getInteger(R.integer.port),
+                    null, 0, new BasicHttpParams());
+            DataInputStream dis = new DataInputStream(socket.getInputStream());
+            int length = dis.readInt();
+            if (length == 0) {
+                return null;
+            }
+            byte[] data = new byte[length];
+            dis.readFully(data);
+            return (T) parse(new String(data));
         }
-        byte[] data = new byte[length];
-        dis.readFully(data);
-        return (T) parse(new String(data));
     }
 
 //    public static Socket getSocket() {
@@ -75,6 +86,8 @@ public class SocketUtil {
             clazz = Roster.class;
         else if (message.startsWith("<find"))
             clazz = FindResponse.class;
+        else if (message.startsWith("<presence"))
+            clazz = Presence.class;
 
         return serializer.read(clazz, message);
     }

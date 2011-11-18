@@ -54,7 +54,12 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
         Message message = (Message) o;
 
         messages.add(message);
-        adapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

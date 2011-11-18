@@ -17,6 +17,8 @@ public class RosterElement {
     @Attribute
     private boolean online;
 
+    private int messagesUnread = 0;
+
     public RosterElement() {}
 
     public RosterElement(String name, boolean online) {
@@ -38,5 +40,17 @@ public class RosterElement {
 
     public void setOnline(boolean online) {
         this.online = online;
+    }
+
+    public int getMessagesUnread() {
+        return messagesUnread;
+    }
+
+    public void setMessagesUnread(int messagesUnread) {
+        this.messagesUnread = messagesUnread;
+    }
+
+    public void messageRecieved() {
+        messagesUnread++;
     }
 }
