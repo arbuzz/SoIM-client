@@ -5,22 +5,21 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
-    <TextView android:layout_width="fill_parent"
+    <TextView android:layout_width="wrap_content"
               android:gravity="left"
               android:layout_height="wrap_content"
               android:paddingTop="10dp"
               android:paddingBottom="10dp"
               android:id="@+id/name"
-              android:layout_weight="0"
               android:textSize="18dp"
               android:textColor="#ffffff"/>
 
-    <TextView android:layout_width="fill_parent"
+    <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:gravity="right"
-              android:layout_weight="1"
               android:paddingTop="10dp"
               android:paddingBottom="10dp"
+              android:paddingLeft="30dp"
               android:id="@+id/unread_messages"
               android:textSize="18dp"
               android:visibility="gone"
