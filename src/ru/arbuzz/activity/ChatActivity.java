@@ -77,5 +77,9 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
         message.setFrom(ResourcesHolder.getLogin());
         message.setDate(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
         new SendMessageTask(this, message).execute();
+
+        messages.add(message);
+        adapter.notifyDataSetChanged();
+        messageText.setText("");
     }
 }
