@@ -3,12 +3,14 @@ package ru.arbuzz.model;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Text;
 
+import java.io.Serializable;
+
 /**
  * This code is brought you by
  *
  * @author Olshanikov Konstantin
  */
-public class Message {
+public class Message implements Serializable {
 
     @Text
     private String body;

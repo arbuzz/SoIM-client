@@ -4,6 +4,9 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This code is brought you by
  *
@@ -17,7 +20,7 @@ public class RosterElement {
     @Attribute
     private boolean online;
 
-    private int messagesUnread = 0;
+    private ArrayList<Message> messagesUnread = new ArrayList<Message>();
 
     public RosterElement() {}
 
@@ -42,15 +45,15 @@ public class RosterElement {
         this.online = online;
     }
 
-    public int getMessagesUnread() {
+    public ArrayList<Message> getMessagesUnread() {
         return messagesUnread;
     }
 
-    public void setMessagesUnread(int messagesUnread) {
+    public void setMessagesUnread(ArrayList<Message> messagesUnread) {
         this.messagesUnread = messagesUnread;
     }
 
-    public void messageRecieved() {
-        messagesUnread++;
+    public void messageReceived(Message message) {
+        messagesUnread.add(message);
     }
 }

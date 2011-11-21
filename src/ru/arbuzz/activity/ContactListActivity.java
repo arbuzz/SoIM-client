@@ -21,10 +21,7 @@ import ru.arbuzz.util.Config;
 import ru.arbuzz.util.MenuUtil;
 import ru.arbuzz.util.MessageHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 /**
  * This code is brought you by
@@ -65,12 +62,16 @@ public class ContactListActivity extends BaseListActivity {
     @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
         RosterElement element = adapter.getItem(position);
-        element.setMessagesUnread(0);
+        ArrayList<Message> messagesUnread = element.getMessagesUnread();
+        element.setMessagesUnread(new ArrayList<Message>());
         adapter.notifyDataSetChanged();
 
         ContactListViewHolder holder = (ContactListViewHolder) view.getTag();
         String contactName = (String) holder.getName().getText();
         Intent intent = new Intent(this, ChatActivity.class);
+        if (messagesUnread.size() > 0) {
+            intent.putExtra(ChatActivity.MESSAGES_UNREAD_KEY, messagesUnread);
+        }
         intent.putExtra(ChatActivity.USER_CHAT_KEY, contactName);
         startActivity(intent);
     }

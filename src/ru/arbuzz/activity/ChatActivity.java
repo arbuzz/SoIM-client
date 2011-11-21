@@ -27,6 +27,7 @@ import java.util.*;
 public class ChatActivity extends BaseListActivity implements View.OnClickListener {
 
     public static final String USER_CHAT_KEY = "user-chat";
+    public static final String MESSAGES_UNREAD_KEY = "messages-unread";
 
     private String userTo;
 
@@ -38,7 +39,12 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
-        adapter = new MessageAdapter(this, messages);
+        ArrayList<Message> messages = (ArrayList<Message>) getIntent().getSerializableExtra(MESSAGES_UNREAD_KEY);
+        if (messages != null) {
+            this.messages.addAll(messages);
+        }
+
+        adapter = new MessageAdapter(this, this.messages);
         setListAdapter(adapter);
 
         userTo = getIntent().getStringExtra(USER_CHAT_KEY);

@@ -1,7 +1,6 @@
 package ru.arbuzz.adapter;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +50,9 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
         } else {
             holder.getName().setTextColor(Color.RED);
         }
-        if (element.getMessagesUnread() > 0) {
+        if (element.getMessagesUnread().size() > 0) {
             holder.getUnreadMessages().setVisibility(View.VISIBLE);
-            holder.getUnreadMessages().setText(Integer.toString(element.getMessagesUnread()));
+            holder.getUnreadMessages().setText(Integer.toString(element.getMessagesUnread().size()));
         } else {
             holder.getUnreadMessages().setVisibility(View.GONE);
             holder.getUnreadMessages().setText("");
@@ -76,7 +75,7 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
         for (int i = 0; i < getCount(); i++) {
             RosterElement element = getItem(i);
             if (element.getName().equals(message.getFrom())) {
-                element.messageRecieved();
+                element.messageReceived(message);
                 notifyDataSetChanged();
                 return;
             }
