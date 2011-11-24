@@ -10,8 +10,10 @@ import android.widget.TextView;
 import ru.arbuzz.R;
 import ru.arbuzz.model.Message;
 import ru.arbuzz.model.Presence;
+import ru.arbuzz.model.Roster;
 import ru.arbuzz.model.RosterElement;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,10 +24,12 @@ import java.util.List;
 public class ContactListAdapter extends ArrayAdapter<RosterElement> {
 
     private ListActivity context;
+    private List<RosterElement> items;
 
     public ContactListAdapter(ListActivity context, List<RosterElement> objects) {
         super(context, R.layout.contact_list_item, objects);
         this.context = context;
+        this.items = objects;
     }
 
     @Override
@@ -65,6 +69,7 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
             RosterElement element = getItem(i);
             if (element.getName().equals(presence.getName())) {
                 element.setOnline(presence.getStatus() == Presence.ONLINE);
+                Collections.sort(items, new Roster.RosterElementComparator());
                 notifyDataSetChanged();
                 return;
             }
@@ -76,6 +81,7 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
             RosterElement element = getItem(i);
             if (element.getName().equals(message.getFrom())) {
                 element.messageReceived(message);
+                Collections.sort(items, new Roster.RosterElementComparator());
                 notifyDataSetChanged();
                 return;
             }

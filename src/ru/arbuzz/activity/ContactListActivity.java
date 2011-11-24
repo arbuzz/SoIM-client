@@ -95,6 +95,7 @@ public class ContactListActivity extends BaseListActivity {
                     } else {
                         contacts = new ArrayList<RosterElement>();
                     }
+                    Collections.sort(contacts, new Roster.RosterElementComparator());
                     adapter = new ContactListAdapter(ContactListActivity.this, contacts);
                     setListAdapter(adapter);
                 }
