@@ -14,6 +14,7 @@ import ru.arbuzz.model.Message;
 import ru.arbuzz.task.SendMessageTask;
 import ru.arbuzz.util.MessageHandler;
 import ru.arbuzz.util.ResourcesHolder;
+import ru.arbuzz.util.SQLManager;
 import ru.arbuzz.util.XMPPService;
 
 import java.text.SimpleDateFormat;
@@ -39,15 +40,21 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+        userTo = getIntent().getStringExtra(USER_CHAT_KEY);
+
         ArrayList<Message> messages = (ArrayList<Message>) getIntent().getSerializableExtra(MESSAGES_UNREAD_KEY);
         if (messages != null) {
+            this.messages.addAll(messages);
+        } else {
+            messages = (ArrayList) SQLManager.getInstance().select(ResourcesHolder.getLogin(), userTo);
+            while (messages.size() > 5) {
+                messages.remove(0);
+            }
             this.messages.addAll(messages);
         }
 
         adapter = new MessageAdapter(this, this.messages);
         setListAdapter(adapter);
-
-        userTo = getIntent().getStringExtra(USER_CHAT_KEY);
 
         Button button = (Button) findViewById(R.id.send_message_btn);
         button.setOnClickListener(this);
@@ -59,6 +66,7 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
             return;
         Message message = (Message) o;
 
+        SQLManager.getInstance().insert(message);
         messages.add(message);
         runOnUiThread(new Runnable() {
             @Override
@@ -76,6 +84,7 @@ public class ChatActivity extends BaseListActivity implements View.OnClickListen
         message.setTo(userTo);
         message.setFrom(ResourcesHolder.getLogin());
         message.setDate(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
+        SQLManager.getInstance().insert(message);
         new SendMessageTask(this, message).execute();
 
         messages.add(message);

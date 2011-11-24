@@ -17,10 +17,7 @@ import ru.arbuzz.adapter.ContactListViewHolder;
 import ru.arbuzz.model.*;
 import ru.arbuzz.task.ContactListTask;
 import ru.arbuzz.task.GoneOfflineTask;
-import ru.arbuzz.util.Config;
-import ru.arbuzz.util.MenuUtil;
-import ru.arbuzz.util.MessageHandler;
-import ru.arbuzz.util.ResourcesHolder;
+import ru.arbuzz.util.*;
 
 import java.util.*;
 
@@ -120,6 +117,7 @@ public class ContactListActivity extends BaseListActivity {
             });
         } else if (o instanceof Message) {
             final Message message = (Message) o;
+            SQLManager.getInstance().insert(message);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
