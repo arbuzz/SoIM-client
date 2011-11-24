@@ -20,6 +20,7 @@ import ru.arbuzz.task.GoneOfflineTask;
 import ru.arbuzz.util.Config;
 import ru.arbuzz.util.MenuUtil;
 import ru.arbuzz.util.MessageHandler;
+import ru.arbuzz.util.ResourcesHolder;
 
 import java.util.*;
 
@@ -45,11 +46,18 @@ public class ContactListActivity extends BaseListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean result = MenuUtil.menuItemClicked(this, item);
-        if (!result) {
-            result = super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_find_people:
+                Intent intent = new Intent(this, FindPeopleActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_refresh:
+                showProgressDialog();
+                new ContactListTask(new RosterRequest(ResourcesHolder.getLogin())).execute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return result;
     }
 
     @Override

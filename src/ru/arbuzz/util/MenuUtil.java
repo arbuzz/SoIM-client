@@ -18,6 +18,8 @@ public class MenuUtil {
             case R.id.menu_find_people:
                 findPeopleSelected(context);
                 return true;
+            case R.id.menu_refresh:
+
             default:
                 return false;
         }

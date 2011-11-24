@@ -28,4 +28,6 @@
     <string name="add_contact_failure_text">Контакт не был добавлен! Произошла ошибка.</string>
 
     <string name="send_message_button_text">Отправить сообщение!</string>
+
+    <string name="menu_refresh">Обновить!</string>
 </resources>
