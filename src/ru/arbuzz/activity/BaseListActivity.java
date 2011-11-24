@@ -51,7 +51,7 @@ public abstract class BaseListActivity extends ListActivity implements Observer 
         dialog.dismiss();
     }
 
-    protected void makeToast(final int textId) {
+    public void makeToast(final int textId) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
