@@ -11,6 +11,7 @@ public class ContactListViewHolder {
 
     private TextView name;
     private TextView unreadMessages;
+    private TextView status;
 
     public ContactListViewHolder() {}
 
@@ -28,5 +29,13 @@ public class ContactListViewHolder {
 
     public void setUnreadMessages(TextView unreadMessages) {
         this.unreadMessages = unreadMessages;
+    }
+
+    public TextView getStatus() {
+        return status;
+    }
+
+    public void setStatus(TextView status) {
+        this.status = status;
     }
 }

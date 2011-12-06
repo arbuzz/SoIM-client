@@ -30,6 +30,10 @@
     <string name="send_message_button_text">Отправить сообщение!</string>
 
     <string name="menu_refresh">Обновить!</string>
+    <string name="menu_set_status">Установить статус!</string>
 
     <string name="delete_user">Удалить его!</string>
+
+    <string name="set_status_hint">Сюда введите статус!</string>
+    <string name="set_status_confirm">Поставить статус!</string>
 </resources>

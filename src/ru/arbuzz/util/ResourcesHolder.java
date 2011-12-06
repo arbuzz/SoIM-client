@@ -11,6 +11,7 @@ public class ResourcesHolder {
 
     private static Resources resources;
     private static String login;
+    private static String status;
 
     public static void init(Resources res) {
         resources = res;
@@ -26,5 +27,13 @@ public class ResourcesHolder {
 
     public static void setLogin(String login) {
         ResourcesHolder.login = login;
+    }
+
+    public static void setStatus(String status) {
+        ResourcesHolder.status = status;
+    }
+
+    public static String getStatus() {
+        return status;
     }
 }

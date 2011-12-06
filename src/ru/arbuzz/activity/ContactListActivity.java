@@ -73,6 +73,8 @@ public class ContactListActivity extends BaseListActivity {
                 showProgressDialog();
                 new ContactListTask(new RosterRequest(ResourcesHolder.getLogin())).execute();
                 return true;
+            case R.id.menu_set_status:
+                new StatusDialog(this).show();
             default:
                 return super.onOptionsItemSelected(item);
         }

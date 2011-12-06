@@ -18,12 +18,20 @@ public class Presence {
     private String name;
     @Attribute
     private int status;
+    @Attribute(required = false)
+    private String textStatus;
 
     public Presence() {}
 
     public Presence(String name, int status) {
         this.name = name;
         this.status = status;
+    }
+
+    public Presence(String name, String textStatus) {
+        this.name = name;
+        this.status = ONLINE;
+        this.textStatus = textStatus;
     }
 
     public String getName() {
@@ -40,5 +48,13 @@ public class Presence {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getTextStatus() {
+        return textStatus;
+    }
+
+    public void setTextStatus(String textStatus) {
+        this.textStatus = textStatus;
     }
 }

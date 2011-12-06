@@ -19,6 +19,8 @@ public class RosterElement {
     private String name;
     @Attribute
     private boolean online;
+    @Attribute(required = false)
+    private String textStatus;
 
     private ArrayList<Message> messagesUnread = new ArrayList<Message>();
 
@@ -55,5 +57,13 @@ public class RosterElement {
 
     public void messageReceived(Message message) {
         messagesUnread.add(message);
+    }
+
+    public String getTextStatus() {
+        return textStatus;
+    }
+
+    public void setTextStatus(String textStatus) {
+        this.textStatus = textStatus;
     }
 }

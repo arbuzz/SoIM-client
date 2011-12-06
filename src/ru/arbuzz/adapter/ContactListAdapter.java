@@ -43,6 +43,7 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
             ContactListViewHolder holder = new ContactListViewHolder();
             holder.setName((TextView) view.findViewById(R.id.name));
             holder.setUnreadMessages((TextView) view.findViewById(R.id.unread_messages));
+            holder.setStatus((TextView) view.findViewById(R.id.status));
             view.setTag(holder);
         } else {
             view = convertView;
@@ -61,6 +62,12 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
             holder.getUnreadMessages().setVisibility(View.GONE);
             holder.getUnreadMessages().setText("");
         }
+        if (element.getTextStatus() != null && !element.getTextStatus().equals("")) {
+            holder.getStatus().setText(element.getTextStatus());
+            holder.getStatus().setVisibility(View.VISIBLE);
+        } else {
+            holder.getStatus().setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -69,6 +76,7 @@ public class ContactListAdapter extends ArrayAdapter<RosterElement> {
             RosterElement element = getItem(i);
             if (element.getName().equals(presence.getName())) {
                 element.setOnline(presence.getStatus() == Presence.ONLINE);
+                element.setTextStatus(presence.getTextStatus());
                 Collections.sort(items, new Roster.RosterElementComparator());
                 notifyDataSetChanged();
                 return;
