@@ -5,10 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import ru.arbuzz.R;
@@ -16,6 +13,7 @@ import ru.arbuzz.adapter.ContactListAdapter;
 import ru.arbuzz.adapter.ContactListViewHolder;
 import ru.arbuzz.model.*;
 import ru.arbuzz.task.ContactListTask;
+import ru.arbuzz.task.DeleteContactTask;
 import ru.arbuzz.task.GoneOfflineTask;
 import ru.arbuzz.util.*;
 
@@ -39,6 +37,29 @@ public class ContactListActivity extends BaseListActivity {
 
         showProgressDialog();
         new ContactListTask(new RosterRequest(login)).execute();
+
+        registerForContextMenu(getListView());
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.contact_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.contacts_context_menu_delete:
+                showProgressDialog();
+                new DeleteContactTask(new DeleteContactRequest(ResourcesHolder.getLogin(),
+                        ((RosterElement) getListView().getAdapter().getItem(info.position)).getName())).execute();
+                break;
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
     }
 
     @Override
@@ -125,6 +146,8 @@ public class ContactListActivity extends BaseListActivity {
                         adapter.setUnreadMessage(message);
                 }
             });
+        } else if (o instanceof BaseResponse) {
+            dismissProgressDialog();
         }
     }
 

@@ -30,4 +30,6 @@
     <string name="send_message_button_text">Отправить сообщение!</string>
 
     <string name="menu_refresh">Обновить!</string>
+
+    <string name="delete_user">Удалить его!</string>
 </resources>

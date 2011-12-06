@@ -1,4 +1,4 @@
 <resources>
-    <string name="host">192.168.1.23</string>
+    <string name="host">195.54.160.251</string>
     <integer name="port">5222</integer>
 </resources>
