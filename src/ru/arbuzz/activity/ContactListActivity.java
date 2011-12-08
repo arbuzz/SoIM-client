@@ -75,6 +75,10 @@ public class ContactListActivity extends BaseListActivity {
                 return true;
             case R.id.menu_set_status:
                 new StatusDialog(this).show();
+                return true;
+            case R.id.menu_payment:
+                Intent intentYandex = new Intent(this, YandexLoginActivity.class);
+                startActivity(intentYandex);
             default:
                 return super.onOptionsItemSelected(item);
         }

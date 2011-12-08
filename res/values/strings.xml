@@ -31,9 +31,12 @@
 
     <string name="menu_refresh">Обновить!</string>
     <string name="menu_set_status">Установить статус!</string>
+    <string name="menu_payment">Оплатить что-нибудь!</string>
 
     <string name="delete_user">Удалить его!</string>
 
     <string name="set_status_hint">Сюда введите статус!</string>
     <string name="set_status_confirm">Поставить статус!</string>
+
+    <string name="payment_get_account_info">Показать что у меня там со счетом</string>
 </resources>

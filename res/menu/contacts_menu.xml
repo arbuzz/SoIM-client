@@ -5,5 +5,6 @@
     <item android:id="@+id/menu_find_people" android:title="@string/menu_find_people"/>
     <item android:id="@+id/menu_refresh" android:title="@string/menu_refresh"/>
     <item android:id="@+id/menu_set_status" android:title="@string/menu_set_status"/>
+    <item android:id="@+id/menu_payment" android:title="@string/menu_payment"/>
 
 </menu>

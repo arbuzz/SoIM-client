@@ -17,6 +17,8 @@
         <activity android:name="ru.arbuzz.activity.ContactListActivity"/>
         <activity android:name=".activity.FindPeopleActivity"/>
         <activity android:name=".activity.ChatActivity"/>
+        <activity android:name=".activity.YandexLoginActivity"/>
+        <activity android:name=".activity.PaymentActivity"/>
         <service android:name=".util.XMPPService" android:enabled="true"/>
     </application>
 </manifest> 
